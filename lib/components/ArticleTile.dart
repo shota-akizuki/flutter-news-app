@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_news_app/screens/ArticlePage.dart';
 
 class ArticleTile extends StatelessWidget {
-  ArticleTile({
-    this.title,
-    this.author,
-    this.urlToImage,
-  });
+  ArticleTile({this.title, this.author, this.urlToImage, this.url});
 
   final String title;
   final String author;
   final String urlToImage;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +15,11 @@ class ArticleTile extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ArticlePage(),
+          builder: (context) => WebViewScreen(url: url),
         ),
       ),
       child: Container(
-        height: 150,
+        height: 120,
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.grey[500],
@@ -34,8 +31,9 @@ class ArticleTile extends StatelessWidget {
               flex: 2,
               child: Container(
                 child: (urlToImage == null)
-                    ? Image.network('https://source.unsplash.com/random')
-                    : Image.network(urlToImage),
+                    ? Image.network('https://source.unsplash.com/random',
+                        fit: BoxFit.cover)
+                    : Image.network(urlToImage, fit: BoxFit.cover),
                 height: 150,
               ),
             ),
@@ -52,7 +50,10 @@ class ArticleTile extends StatelessWidget {
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      Text((author == null ? '' : author)),
+                      Text(
+                        (author == null ? '' : author),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[900]),
+                      ),
                     ],
                   ),
                 ),

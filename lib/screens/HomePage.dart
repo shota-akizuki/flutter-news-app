@@ -41,9 +41,11 @@ class _MyHomePageState extends State<MyHomePage> {
           itemCount: 10,
           itemBuilder: (BuildContext context, int index) {
             return ArticleTile(
-                title: articles[index]['title'],
-                author: articles[index]['author'],
-                urlToImage: articles[index]['urlToImage']);
+              title: articles[index]['title'],
+              author: articles[index]['author'],
+              urlToImage: articles[index]['urlToImage'],
+              url: articles[index]['url'],
+            );
           },
         ),
       ),
