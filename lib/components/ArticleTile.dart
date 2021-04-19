@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/model/MainModel.dart';
 import 'package:flutter_news_app/screens/ArticlePage.dart';
-import 'package:provider/provider.dart';
 
 class ArticleTile extends StatelessWidget {
   ArticleTile({
@@ -10,61 +8,60 @@ class ArticleTile extends StatelessWidget {
     this.urlToImage,
   });
 
-  String title;
-  String author;
-  String urlToImage;
+  final String title;
+  final String author;
+  final String urlToImage;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MainModel>(
-        create: (_) => MainModel(),
-        builder: (context, snapshot) {
-          return Consumer<MainModel>(builder: (context, model, child) {
-            return InkWell(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ArticlePage(),
-                ),
+    return InkWell(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ArticlePage(),
+        ),
+      ),
+      child: Container(
+        height: 150,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.grey[500],
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Container(
+                child: (urlToImage == null)
+                    ? Image.network('https://source.unsplash.com/random')
+                    : Image.network(urlToImage),
+                height: 150,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: Colors.grey[900],
-                    ),
-                  ),
-                  child: Row(
+            ),
+            Expanded(
+              flex: 5,
+              child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          child: Center(child: Image.network(urlToImage)),
-                          height: 100,
-                        ),
+                      Text(
+                        title,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      Expanded(
-                        flex: 5,
-                        child: Container(
-                          child: Center(
-                              child: Column(
-                            children: [
-                              Text(title),
-                              Text(author),
-                            ],
-                          )),
-                          height: 150,
-                        ),
-                      ),
+                      Text((author == null ? '' : author)),
                     ],
                   ),
                 ),
+                height: 150,
               ),
-            );
-          });
-        });
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
