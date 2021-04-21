@@ -4,6 +4,8 @@ import 'package:flutter_news_app/components/Loading.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+
 
 //記事一覧を表示する画面
 class HomePage extends StatefulWidget {
@@ -18,7 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   Future getData() async {
     final url = Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=jp&apiKey=690103fa291b4c58bc157bff0e6d1630');
+        'https://newsapi.org/v2/top-headlines?country=jp&apiKey=${DotEnv.env['NEWS_API_KEY']}');
     final http.Response response = await http.get(url);
     final data = json.decode(response.body);
     setState(() {

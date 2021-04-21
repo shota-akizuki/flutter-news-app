@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/screens/MainPage.dart';
-
-void main() {
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+ 
+void main() async{
+   await DotEnv.load();
   runApp(MyApp());
 }
 
