@@ -21,7 +21,6 @@ class _HomePageState extends State<HomePage> {
         'https://newsapi.org/v2/top-headlines?country=jp&apiKey=690103fa291b4c58bc157bff0e6d1630');
     final http.Response response = await http.get(url);
     final data = json.decode(response.body);
-
     setState(() {
       articles = data['articles'];
     });
